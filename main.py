@@ -29,10 +29,30 @@ def get_word_count(book_contents):
     word_count = len(words)
     return word_count
 
+def get_character_counts(book_contents):
+    """!
+    This function gets the count of all characters in a book and stores them in
+    a dict. First it converts the book contents to all lowercase.
+    """
+    char_dict = {}
+    lowercase_book = book_contents.lower()
+    # loop through each character of the book
+    for char in lowercase_book:
+        if char in char_dict:
+            char_dict[char] = char_dict[char] + 1
+        else: 
+            char_dict[char] = 1
+    
+    return char_dict
+
+
+
 def main():
     frankenstein = get_book_contents("books/frankenstein.txt")
     print_book_to_terminal(frankenstein)
     word_count = get_word_count(frankenstein)
     print(f"Word count: {word_count}")
+    character_counts = get_character_counts(frankenstein)
+    print(character_counts)
 
 main()
