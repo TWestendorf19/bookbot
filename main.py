@@ -42,17 +42,38 @@ def get_character_counts(book_contents):
             char_dict[char] = char_dict[char] + 1
         else: 
             char_dict[char] = 1
-    
     return char_dict
 
+def sorton(dict):
+    return dict["val"]
+
+def get_sorted_char_counts(char_counts_dict):
+    char_counts_list = []
+    # loop through each key in the dict
+    keys = char_counts_dict.keys()
+    for key in keys:
+        char_counts_list.append({'char': key, 'val': char_counts_dict[key]})
+    char_counts_list.sort(reverse=True, key=sorton)
+    return char_counts_list
+
+def print_book_report(bookpath):
+    """!
+    This function will generate and print out a report to the terminal given a
+    string path to the books .txt file
+    """
+    book_contents = get_book_contents(bookpath)
+    word_count = get_word_count(book_contents)
+    char_counts = get_character_counts(book_contents)
+    sorted_chars = get_sorted_char_counts(char_counts)
+    print(f"---------- Begin report of {bookpath} ----------")
+    print(f"{word_count} words found in the document\n")
+    for character in sorted_chars:
+        if character['char'].isalpha():
+            print("The '%s' character was found %i times" % (character["char"], character["val"]))
+    print(f"------------------ End report ------------------")
 
 
 def main():
-    frankenstein = get_book_contents("books/frankenstein.txt")
-    print_book_to_terminal(frankenstein)
-    word_count = get_word_count(frankenstein)
-    print(f"Word count: {word_count}")
-    character_counts = get_character_counts(frankenstein)
-    print(character_counts)
+    print_book_report("books/frankenstein.txt")
 
 main()
